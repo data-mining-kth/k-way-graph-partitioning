@@ -1,2 +1,1 @@
-# k-way-graph-partitioning
-K-way Graph Partitioning Using JaBeJa
+# id2222-lab4
