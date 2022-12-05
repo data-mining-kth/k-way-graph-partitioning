@@ -61,16 +61,21 @@ public class Jabeja {
   /**
    * Sample and swap algorithm at node p
    * @param nodeId
+   * Two nodes exchange their colors if this exchange decreases their energy
+   * sampleAndSwap() uses findPartner
    */
   private void sampleAndSwap(int nodeId) {
-    Node partner = null; // set partner node to null
-    Node nodep = entireGraph.get(nodeId); // find partner 
-    
+    // set partner node to null
+    Node partner = null; 
+    // get node p based on nodeId provided
+    Node nodep = entireGraph.get(nodeId);
     // use hybrid heuristic for node selection
     // 1. first try with local policy
     if (config.getNodeSelectionPolicy() == NodeSelectionPolicy.HYBRID
             || config.getNodeSelectionPolicy() == NodeSelectionPolicy.LOCAL) {
       // swap with random neighbors
+      // find partner to node p
+      partner = findPartner(nodep.getNeighbors())
       
     }
     // 2. try with random sample if local policy is not selected
@@ -82,6 +87,7 @@ public class Jabeja {
 
     // swap the colors
     // TODO
+    
   }
 
   public Node findPartner(int nodeId, Integer[] nodes){
@@ -92,22 +98,29 @@ public class Jabeja {
     double highestBenefit = 0;
 
     // TODO
-    // for q in nodes do:
     for(Integer nodeq : nodes){
+      // # of neighbors of node p with color like p
       d_pp = nodep.getDegree(nodep.getColor());
+      // # of neighbors of node q with color like q
       d_qq = nodeq.detDegree(nodeq.getColor());
+      // alpha is the parameter of the energy function
       alpha = config.getAlpha();
+      // old degree -> neighbors with same color
       old_d = d_pp^alpha + d_qq^alpha;
+      // # of neighbors of node p with color like q
       d_pq = nodep.getDegree(nodeq.getColor());
+      // # of neighbors of node q with color like p
       d_qp = nodeq.getDegree(nodep.getColor());
+      // new degree -> neighbors with different colours
       new_d = d_pq^alpha + d_qp^alpha;
-      // 
+      // the parameter T is for simulated annealing
+      // if there are more colors similar to p in the 
+      // neighbourhood of q, then the new best partner is q
       if(new_d*nodeId.T>old_d || new_d > highestBenefit){
         bestPartner = nodeq;
         highestBenefit = new_d;
       }
     }
-
     return bestPartner;
   }
 
