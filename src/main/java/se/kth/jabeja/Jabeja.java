@@ -75,7 +75,7 @@ public class Jabeja {
             || config.getNodeSelectionPolicy() == NodeSelectionPolicy.LOCAL) {
       // swap with random neighbors
       // find partner to node p
-      partner = findPartner(nodep.getNeighbors())
+      partner = findPartner(nodeId, getNeighbors(nodep));
       
     }
     // 2. try with random sample if local policy is not selected
@@ -83,10 +83,19 @@ public class Jabeja {
             || config.getNodeSelectionPolicy() == NodeSelectionPolicy.RANDOM) {
       // if local policy fails then randomly sample the entire graph
       // TODO
+      if (partner == null){
+        partner = findPartner(nodeId, getSample(nodeId));
+      }
     }
 
     // swap the colors
     // TODO
+    if(partner != null){
+      int color = partner.getColor();
+      partner.setColor(nodep.getColor());
+      nodep.setColor(color);
+      numberOfSwaps++;
+    }
     
   }
 
