@@ -1,1 +1,1 @@
-# k-way graph partitioning
+# distributed balanced k-way graph partitioning
