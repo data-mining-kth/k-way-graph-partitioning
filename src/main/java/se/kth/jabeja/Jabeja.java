@@ -59,22 +59,21 @@ public class Jabeja {
   }
 
   /**
-   * Sample and swap algorith at node p
+   * Sample and swap algorithm at node p
    * @param nodeId
    */
   private void sampleAndSwap(int nodeId) {
-    Node partner = null;
-    Node nodep = entireGraph.get(nodeId);
-    // find partner of nodeId
+    Node partner = null; // set partner node to null
+    Node nodep = entireGraph.get(nodeId); // find partner 
     
-    // use hybrid heuristinc for node selection
-    // first try with local policy
+    // use hybrid heuristic for node selection
+    // 1. first try with local policy
     if (config.getNodeSelectionPolicy() == NodeSelectionPolicy.HYBRID
             || config.getNodeSelectionPolicy() == NodeSelectionPolicy.LOCAL) {
       // swap with random neighbors
       
     }
-
+    // 2. try with random sample if local policy is not selected
     if (config.getNodeSelectionPolicy() == NodeSelectionPolicy.HYBRID
             || config.getNodeSelectionPolicy() == NodeSelectionPolicy.RANDOM) {
       // if local policy fails then randomly sample the entire graph
@@ -93,12 +92,27 @@ public class Jabeja {
     double highestBenefit = 0;
 
     // TODO
+    // for q in nodes do:
+    for(Integer nodeq : nodes){
+      d_pp = nodep.getDegree(nodep.getColor());
+      d_qq = nodeq.detDegree(nodeq.getColor());
+      alpha = config.getAlpha();
+      old_d = d_pp^alpha + d_qq^alpha;
+      d_pq = nodep.getDegree(nodeq.getColor());
+      d_qp = nodeq.getDegree(nodep.getColor());
+      new_d = d_pq^alpha + d_qp^alpha;
+      // 
+      if(new_d*nodeId.T>old_d || new_d > highestBenefit){
+        bestPartner = nodeq;
+        highestBenefit = new_d;
+      }
+    }
 
     return bestPartner;
   }
 
   /**
-   * The the degreee on the node based on color
+   * The the degreee on the node based on 
    * @param node
    * @param colorId
    * @return how many neighbors of the node have color == colorId
