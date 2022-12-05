@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
+// Create public class
 public class Jabeja {
   final static Logger logger = Logger.getLogger(Jabeja.class);
   private final Config config;
@@ -34,6 +35,7 @@ public class Jabeja {
   //-------------------------------------------------------------------
   public void startJabeja() throws IOException {
     for (round = 0; round < config.getRounds(); round++) {
+      // for every entry in the graph
       for (int id : entireGraph.keySet()) {
         sampleAndSwap(id);
       }
@@ -63,11 +65,14 @@ public class Jabeja {
   private void sampleAndSwap(int nodeId) {
     Node partner = null;
     Node nodep = entireGraph.get(nodeId);
-
+    // find partner of nodeId
+    
+    // use hybrid heuristinc for node selection
+    // first try with local policy
     if (config.getNodeSelectionPolicy() == NodeSelectionPolicy.HYBRID
             || config.getNodeSelectionPolicy() == NodeSelectionPolicy.LOCAL) {
       // swap with random neighbors
-      // TODO
+      
     }
 
     if (config.getNodeSelectionPolicy() == NodeSelectionPolicy.HYBRID
