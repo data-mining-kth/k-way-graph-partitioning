@@ -59,22 +59,26 @@ public class Jabeja {
   }
 
   /**
-   * Sample and swap algorith at node p
+   * Sample and swap algorithm at node p
    * @param nodeId
+   * Two nodes exchange their colors if this exchange decreases their energy
+   * sampleAndSwap() uses findPartner
    */
   private void sampleAndSwap(int nodeId) {
-    Node partner = null;
+    // set partner node to null
+    Node partner = null; 
+    // get node p based on nodeId provided
     Node nodep = entireGraph.get(nodeId);
-    // find partner of nodeId
-    
-    // use hybrid heuristinc for node selection
-    // first try with local policy
+    // use hybrid heuristic for node selection
+    // 1. first try with local policy
     if (config.getNodeSelectionPolicy() == NodeSelectionPolicy.HYBRID
             || config.getNodeSelectionPolicy() == NodeSelectionPolicy.LOCAL) {
       // swap with random neighbors
+      // find partner to node p
+      partner = findPartner(nodep.getNeighbors())
       
     }
-
+    // 2. try with random sample if local policy is not selected
     if (config.getNodeSelectionPolicy() == NodeSelectionPolicy.HYBRID
             || config.getNodeSelectionPolicy() == NodeSelectionPolicy.RANDOM) {
       // if local policy fails then randomly sample the entire graph
@@ -83,6 +87,7 @@ public class Jabeja {
 
     // swap the colors
     // TODO
+    
   }
 
   public Node findPartner(int nodeId, Integer[] nodes){
@@ -93,12 +98,36 @@ public class Jabeja {
     double highestBenefit = 0;
 
     // TODO
-
+    for(Integer i : nodes){
+      // get node q
+      Node nodeq = entireGraph.get(i);
+      // # of neighbors of node p with color like p
+      int d_pp = getDegree(nodep, nodep.getColor());
+      // # of neighbors of node q with color like q
+      int d_qq = getDegree(nodeq, nodeq.getColor());
+      // alpha is the parameter of the energy function
+      double alpha = config.getAlpha();
+      // old degree -> neighbors with same color
+      double old_d = Math.pow(d_pp, alpha) + Math.pow(d_qq, alpha);
+      // # of neighbors of node p with color like q
+      int d_pq = getDegree(nodep, nodeq.getColor());
+      // # of neighbors of node q with color like p
+      int d_qp = getDegree(nodeq, nodep.getColor());
+      // new degree -> neighbors with different colours
+      double new_d = Math.pow(d_pq, alpha) + Math.pow(d_qp, alpha);
+      // the parameter T is for simulated annealing
+      // if there are more colors similar to p in the 
+      // neighbourhood of q, then the new best partner is q
+      if(new_d*T>old_d || new_d > highestBenefit){
+        bestPartner = nodeq;
+        highestBenefit = new_d;
+      }
+    }
     return bestPartner;
   }
 
   /**
-   * The the degreee on the node based on color
+   * The the degreee on the node based on 
    * @param node
    * @param colorId
    * @return how many neighbors of the node have color == colorId
