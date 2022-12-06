@@ -1,46 +1,20 @@
 # distributed balanced k-way graph partitioning
 
+Authors: Brando Chiminelli, Tommaso Praturlon
+
+To run the program in Task 1 do
+- ./compile.sh
+- ./run.sh -graph {path/to/graph/}
+- ./plot.sh {path/to/output}
+
 ## Task 1 
-To implement Ja-Be-Ja, you need to modify the JaBeJa.java class. 
+Experiments for graphs: 3elt.graph, add20.graph, facebook.graph.
+What does the graph show? Explain.
 
-All the methods you need to implement are marked with TODO tags. 
 
-You must implement the sampleAndSwap(...) ​method and the findPartner(...) method described in the paper.
-```
-  private void sampleAndSwap(int nodeId) {
-    Node partner = null;
-    Node nodep = entireGraph.get(nodeId);
-
-    if (config.getNodeSelectionPolicy() == NodeSelectionPolicy.HYBRID
-            || config.getNodeSelectionPolicy() == NodeSelectionPolicy.LOCAL) {
-      // swap with random neighbors
-      // TODO
-    }
-
-    if (config.getNodeSelectionPolicy() == NodeSelectionPolicy.HYBRID
-            || config.getNodeSelectionPolicy() == NodeSelectionPolicy.RANDOM) {
-      // if local policy fails then randomly sample the entire graph
-      // TODO
-    }
-
-    // swap the colors
-    // TODO
-  }
-```
-
-```
-  public Node findPartner(int nodeId, Integer[] nodes){
-
-    Node nodep = entireGraph.get(nodeId);
-
-    Node bestPartner = null;
-    double highestBenefit = 0;
-
-    // TODO
-
-    return bestPartner;
-  }
-```
+![3elt](plots/graph_3elt.png)
+![add20](plots/graph_add20.png)
+![facebook](plots/graph_facebook.png)
 
 ## Task 2
 
