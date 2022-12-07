@@ -6,8 +6,7 @@ import se.kth.jabeja.config.NodeSelectionPolicy;
 import se.kth.jabeja.io.FileIO;
 import se.kth.jabeja.rand.RandNoGenerator;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 // Create public class
@@ -49,15 +48,17 @@ public class Jabeja {
 
   /**
    * Simulated analealing cooling function
+   * The temperature is a function of which iteration you're on
    */
   private void saCoolDown(){
-    // TODO for second task
+    // TODO for second task -> done
     // change temperature decrease to be non-linear
-    if (T > 1)
-    //  T -= config.getDelta();
-      T = T*config.getDelta();
-    if (T < 1)
-      T = 1;
+    // Typical choices for alpha are between 0.8 and 0.99
+    //  T -= config.getDelta(); // linear decrease
+    System.out.printf("T: %f\n", T);
+    T = T*0.9f;
+    if (T < 0.00001f)
+      T = 0.00001f;
   }
 
   /**
@@ -84,14 +85,14 @@ public class Jabeja {
     if (config.getNodeSelectionPolicy() == NodeSelectionPolicy.HYBRID
             || config.getNodeSelectionPolicy() == NodeSelectionPolicy.RANDOM) {
       // if local policy fails then randomly sample the entire graph
-      // TODO
+      // TODO -> done
       if (partner == null){
         partner = findPartner(nodeId, getSample(nodeId));
       }
     }
 
     // swap the colors
-    // TODO
+    // TODO -> done
     if(partner != null){
       int color = partner.getColor();
       partner.setColor(nodep.getColor());
@@ -108,7 +109,7 @@ public class Jabeja {
     Node bestPartner = null;
     double highestBenefit = 0;
 
-    // TODO
+    // TODO -> done
     for(Integer i : nodes){
       // get node q
       Node nodeq = entireGraph.get(i);
@@ -120,15 +121,32 @@ public class Jabeja {
       double alpha = config.getAlpha();
       // old degree -> neighbors with same color
       double old_d = Math.pow(d_pp, alpha) + Math.pow(d_qq, alpha);
+      
+      // introduce iterations to improve performance
+      int iter = 0;
+      while(iter<100){
       // # of neighbors of node p with color like q
-      int d_pq = getDegree(nodep, nodeq.getColor());
-      // # of neighbors of node q with color like p
-      int d_qp = getDegree(nodeq, nodep.getColor());
-      // new degree -> neighbors with different colours
-      double new_d = Math.pow(d_pq, alpha) + Math.pow(d_qp, alpha);
-      // the parameter T is for simulated annealing
-      // if there are more colors similar to p in the 
-      // neighbourhood of q, then the new best partner is q
+	      int d_pq = getDegree(nodep, nodeq.getColor());
+	      // # of neighbors of node q with color like p
+	      int d_qp = getDegree(nodeq, nodep.getColor());
+	      // new degree -> neighbors with different colours
+	      double new_d = Math.pow(d_pq, alpha) + Math.pow(d_qp, alpha);
+	      // the parameter T is for simulated annealing
+	      // if there are more colors similar to p in the 
+	      // neighbourhood of q, then the new best partner is q
+	      // For Task 2
+	      // compute acceptance probability: [0,1]
+	      double accept_prob = Math.pow(Math.E,(new_d-old_d)/T);
+	      // generate random # to compare with accepance probability
+	      double rand_num = (double)RandNoGenerator.nextInt(1000)/(double)1000;
+	      // randomly select new_d
+	      if (accept_prob > rand_num){
+	        bestPartner = nodeq;
+	        highestBenefit = new_d;
+	      }
+	      
+	      iter++;
+      }
       // For Task 1
       /*
       if(new_d*T>old_d || new_d > highestBenefit){
@@ -136,16 +154,6 @@ public class Jabeja {
         highestBenefit = new_d;
       }
       */
-      // For Task 2
-      // compute acceptance probability: [0,1]
-      double accept_prob = Math.pow(Math.E,(new_d-old_d)/T);
-      // generate random # to compare with accepance probability
-      double rand_num = (double)RandNoGenerator.nextInt(1000)/(double)1000;
-      // 
-      if (accept_prob > rand_num && accept_prob > highestBenefit){
-        bestPartner = nodeq;
-        highestBenefit = new_d;
-      }
      
     }
     return bestPartner;
