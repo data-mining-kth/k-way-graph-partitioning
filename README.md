@@ -39,16 +39,21 @@ Implementation of simulated annealing, following the description from [this](htt
 5. If the new cost is less than the old cost, move to new solution -> in findPartner() the _if_ condition
 6. If new cost is more than old cost, use acceptance probability to choose old solution or not -> accept_prob is computed in findPartner() as suggested in the blog post. Then randommly assign the best partner to be the new solution.
 
-### Linear function to decrease the temperature
-```
-  /**
-   * Simulated analealing cooling function
-   */
-  private void saCoolDown(){
-    // TODO for second task
-    if (T > 1)
-      T -= config.getDelta();
-    if (T < 1)
-      T = 1;
-  }
-```
+# Experiments
+At round 1000
+Task 2 point 1 -> implementation of the new simulated annealing. Observe how these changes affect the rate of convergence.
+## 3elt graph
+delta = 0.003, T_alpha = 0.8, T=1 -> edge cut: , swaps: , migrations: 
+delta = 0.003, T_alpha = 0.9, T=1 -> edge cut: 3851, swaps: 4718934, migrations: 3501 
+delta = 0.003, T_alpha = 0.99, T=1 -> edge cut: , swaps: , migrations: 
+## add20 graph
+delta = 0.003, T_alpha = 0.8, T=1 -> edge cut: , swaps: , migrations: 
+delta = 0.003, T_alpha = 0.9, T=1 -> edge cut: 2503, swaps: 2393070, migrations: 1734 
+delta = 0.003, T_alpha = 0.99, T=1 -> edge cut: , swaps: , migrations: 
+## facebook graph
+delta = 0.003, T_alpha = 0.8, T=1 -> edge cut: , swaps: , migrations: 
+delta = 0.003, T_alpha = 0.9, T=1 -> edge cut: , swaps: , migrations: 
+delta = 0.003, T_alpha = 0.99, T=1 -> edge cut: , swaps: , migrations: 
+
+
+Task 2 point 2 -> change T and delta to find lower cuts. 
