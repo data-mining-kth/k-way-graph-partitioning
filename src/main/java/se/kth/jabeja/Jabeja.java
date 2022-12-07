@@ -52,8 +52,10 @@ public class Jabeja {
    */
   private void saCoolDown(){
     // TODO for second task
+    // change temperature decrease to be non-linear
     if (T > 1)
-      T -= config.getDelta();
+    //  T -= config.getDelta();
+      T = T*config.getDelta();
     if (T < 1)
       T = 1;
   }
@@ -127,10 +129,24 @@ public class Jabeja {
       // the parameter T is for simulated annealing
       // if there are more colors similar to p in the 
       // neighbourhood of q, then the new best partner is q
+      // For Task 1
+      /*
       if(new_d*T>old_d || new_d > highestBenefit){
         bestPartner = nodeq;
         highestBenefit = new_d;
       }
+      */
+      // For Task 2
+      // compute acceptance probability: [0,1]
+      double accept_prob = Math.pow(Math.E,(new_d-old_d)/T);
+      // generate random # to compare with accepance probability
+      double rand_num = (double)RandNoGenerator.nextInt(1000)/(double)1000;
+      // 
+      if (accept_prob > rand_num && accept_prob > highestBenefit){
+        bestPartner = nodeq;
+        highestBenefit = new_d;
+      }
+     
     }
     return bestPartner;
   }

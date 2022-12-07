@@ -22,6 +22,13 @@ In this task, you are to analyze how the algorithm's performance is affected whe
 
 Implementation of simulated annealing, following the description from [this](http://katrinaeg.com/simulated-annealing.html) blog post. Basically, to avoid a local maxima and instead find the global one, we calculate an **acceptance probability**. This probability is used, at random points in the process, to choose whether to accept a temporary worse solution since it could lead to a neighboring solution that leads to the gloabl maximum.
 
+1. Generate a random solution -> in sampleAndSwap() call getNeighbors() which finds a randon neighbor partner for the node
+2. Calculate its cost using the cost function -> in findPartner() use _old_ as the cost function defined in the paper
+3. Generate a random neighboring solution -> use the same random partner
+4. Calculate the new solution's cost -> in findPartner() use _new_ as the cost function defined in the paper
+5. If the new cost is less than the old cost, move to new solution -> in findPartner() the _if_ condition
+6. If new cost is more than old cost, use acceptance probability to choose old solution or not -> accept_prob is computed in findPartner() as suggested in the blog post. Then randommly assign the best partner to be the new solution.
+
 ### Linear function to decrease the temperature
 ```
   /**
