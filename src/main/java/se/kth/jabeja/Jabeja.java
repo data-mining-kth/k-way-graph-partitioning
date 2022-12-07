@@ -123,30 +123,30 @@ public class Jabeja {
       double old_d = Math.pow(d_pp, alpha) + Math.pow(d_qq, alpha);
       
       // introduce iterations to improve performance
-      int iter = 0;
-      while(iter<100){
+      //int iter = 0;
+      //while(iter<100){
       // # of neighbors of node p with color like q
-	      int d_pq = getDegree(nodep, nodeq.getColor());
-	      // # of neighbors of node q with color like p
-	      int d_qp = getDegree(nodeq, nodep.getColor());
-	      // new degree -> neighbors with different colours
-	      double new_d = Math.pow(d_pq, alpha) + Math.pow(d_qp, alpha);
-	      // the parameter T is for simulated annealing
-	      // if there are more colors similar to p in the 
-	      // neighbourhood of q, then the new best partner is q
-	      // For Task 2
-	      // compute acceptance probability: [0,1]
-	      double accept_prob = Math.pow(Math.E,(new_d-old_d)/T);
-	      // generate random # to compare with accepance probability
-	      double rand_num = (double)RandNoGenerator.nextInt(1000)/(double)1000;
-	      // randomly select new_d
-	      if (accept_prob > rand_num){
-	        bestPartner = nodeq;
-	        highestBenefit = new_d;
-	      }
-	      
-	      iter++;
+      int d_pq = getDegree(nodep, nodeq.getColor());
+      // # of neighbors of node q with color like p
+      int d_qp = getDegree(nodeq, nodep.getColor());
+      // new degree -> neighbors with different colours
+      double new_d = Math.pow(d_pq, alpha) + Math.pow(d_qp, alpha);
+      // the parameter T is for simulated annealing
+      // if there are more colors similar to p in the 
+      // neighbourhood of q, then the new best partner is q
+      // For Task 2
+      // compute acceptance probability: [0,1]
+      double accept_prob = Math.pow(Math.E,(new_d-old_d)/T);
+      // generate random # to compare with accepance probability
+      double rand_num = (double)RandNoGenerator.nextInt(1000)/(double)1000;
+      // randomly select new_d
+      if (accept_prob > rand_num){
+        bestPartner = nodeq;
+        highestBenefit = new_d;
       }
+	      
+	      //iter++;
+      //}
       // For Task 1
       /*
       if(new_d*T>old_d || new_d > highestBenefit){
