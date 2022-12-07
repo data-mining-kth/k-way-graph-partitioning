@@ -52,7 +52,7 @@ delta = 0.003, T_alpha = 0.9, T=1 -> edge cut: 2503, swaps: 2393070, migrations:
 delta = 0.003, T_alpha = 0.99, T=1 -> edge cut: , swaps: , migrations: 
 ## facebook graph
 delta = 0.003, T_alpha = 0.8, T=1 -> edge cut: , swaps: , migrations: 
-delta = 0.003, T_alpha = 0.9, T=1 -> edge cut: , swaps: , migrations: 
+delta = 0.003, T_alpha = 0.9, T=1 -> edge cut: 163731, swaps: 62882729, migrations: 4757
 delta = 0.003, T_alpha = 0.99, T=1 -> edge cut: , swaps: , migrations: 
 
 
