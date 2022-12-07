@@ -9,11 +9,21 @@ To run the program in Task 1 do
 
 ## Task 1 
 Experiments for graphs: 3elt.graph, add20.graph, facebook.graph.
-What does the graph show? Explain.
+The plots show the performance of JaBeJa with three different graphs, which are the same used in the paper.
+The metrics which are taken into consideration are: edge-cut, swaps and data migration.
+- edge-cut is the number of inter-partition edges, being the energy of the system.
+- swaps is the number of inter-host swaps, indicating the cost of the algorithm.
+- the number of migrations that occur when a node has to be moved from its initial partition to the final one.
+After R=1000 rounds, the best cut
 
-
+### 3elt graph
+With delta set to 0.003 and T=2
 ![3elt](plots/graph_3elt.png)
+### add20 graph
+With delta set to 0.003 and T=2
 ![add20](plots/graph_add20.png)
+### facebook graph
+With delta set to 0.003 and T=2
 ![facebook](plots/graph_facebook.png)
 
 ## Task 2
