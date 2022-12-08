@@ -54,7 +54,7 @@ public class Jabeja {
     // TODO for second task -> done
     // change temperature decrease to be non-linear
     // Typical choices for alpha are between 0.8 and 0.99
-    //  T -= config.getDelta(); // linear decrease
+    //  T -= config.getDelta(); // linear decrease, old
     System.out.printf("T: %f\n", T);
     T = T*0.9f;
     if (T < 0.00001f)
