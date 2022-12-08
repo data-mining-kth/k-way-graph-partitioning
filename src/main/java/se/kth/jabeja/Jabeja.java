@@ -55,10 +55,18 @@ public class Jabeja {
     // change temperature decrease to be non-linear
     // Typical choices for alpha are between 0.8 and 0.99
     //  T -= config.getDelta(); // linear decrease, old
+    /*
     System.out.printf("T: %f\n", T);
     T = T*config.getDelta();
     if (T < 0.00001f)
       T = 0.00001f;
+    */
+    // Original 
+    
+    if (T > 1)
+      T -= config.getDelta();
+    if (T < 1)
+      T = 1;
   }
 
   /**
@@ -131,10 +139,13 @@ public class Jabeja {
       int d_qp = getDegree(nodeq, nodep.getColor());
       // new degree -> neighbors with different colours
       double new_d = Math.pow(d_pq, alpha) + Math.pow(d_qp, alpha);
+      
       // the parameter T is for simulated annealing
       // if there are more colors similar to p in the 
       // neighbourhood of q, then the new best partner is q
+      
       // For Task 2
+      /*
       // compute acceptance probability: [0,1]
       double accept_prob = Math.pow(Math.E,(new_d-old_d)/T);
       // generate random # to compare with accepance probability
@@ -147,14 +158,13 @@ public class Jabeja {
 	      
 	      //iter++;
       //}
+      */
       // For Task 1
-      /*
+      
       if(new_d*T>old_d || new_d > highestBenefit){
         bestPartner = nodeq;
         highestBenefit = new_d;
       }
-      */
-     
     }
     return bestPartner;
   }

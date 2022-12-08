@@ -14,17 +14,25 @@ The metrics which are taken into consideration are: edge-cut, swaps and data mig
 - edge-cut is the number of inter-partition edges, being the energy of the system.
 - swaps is the number of inter-host swaps, indicating the cost of the algorithm.
 - the number of migrations that occur when a node has to be moved from its initial partition to the final one.
-After R=1000 rounds, the best cut
+After R=1000 rounds with hybrid (H) candidate selection policy, the best cuts are
+
+### add20 graph
+With ./run.sh -delta 0.003 -alpha 2 -temp 2 -graph graphs/add20.graph
+
+INFO  Jabeja:283 - round: 999, edge cut:5558, swaps: 2395000, migrations: 1628
+![add20](plots/graph_add20.png)
 
 ### 3elt graph
-With delta set to 0.003 and T=2
+With ./run.sh -delta 0.003 -alpha 2 -temp 2 -graph graphs/3elt.graph
+
+INFO  Jabeja:283 - round: 999, edge cut:3807, swaps: 4720000, migrations: 3543
 ![3elt](plots/graph_3elt.png)
-### add20 graph
-With delta set to 0.003 and T=2
-![add20](plots/graph_add20.png)
-### facebook graph
-With delta set to 0.003 and T=2
-![facebook](plots/graph_facebook.png)
+
+### Twitter graph
+With ./run.sh -delta 0.003 -alpha 2 -temp 2 -graph graphs/twitter.graph
+
+INFO  Jabeja:283 - round: 999, edge cut:120218, swaps: 2731000, migrations: 2040
+![twitter](plots/graph_twitter.png)
 
 ## Task 2
 
