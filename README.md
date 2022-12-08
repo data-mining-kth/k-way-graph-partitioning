@@ -43,6 +43,10 @@ Experiment with different values for the temperature T decrease: alpha belongs t
 
 Part 2. Restart simulated annealing after a certain number of cycles, depending on the initial T and delta. e.g. for T=2, delta=0.01 after 200 rounds (T/delta). Experiment with different parameters to find lower edge cuts. -> Check on the literature how to reach this and implement.
 
+To experiment change parameters that could be set in run.sh
+
+To see these type ./run.sh -help. Commands are -delta, -alpha, -temp, -rounds.
+
 # Experiments
 At round 1000
 Task 2 point 1 -> implementation of the new simulated annealing. Observe how these changes affect the rate of convergence.
