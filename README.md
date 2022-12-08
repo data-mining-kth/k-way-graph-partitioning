@@ -4,8 +4,8 @@ Authors: Brando Chiminelli, Tommaso Praturlon
 
 To run the program in Task 1 do
 - ./compile.sh
-- ./run.sh -graph {path/to/graph/}
-- ./plot.sh {path/to/output}
+- ./run.sh -graph {path/to/graph/}, e.g. ./run.sh -graph ./graphs/3elt.graph
+- ./plot.sh {path/to/output}, e.g. ./plot.sh output/3elt.graph_NS_HYBRID_GICP_ROUND_ROBIN_T_2.0_D_0.003_RNSS_3_URSS_6_A_2.0_R_1000.txt
 
 ## Task 1 
 Experiments for graphs: 3elt.graph, add20.graph, facebook.graph.
@@ -30,7 +30,7 @@ With delta set to 0.003 and T=2
 
 In this task, you are to analyze how the algorithm's performance is affected when different parameters are changed, especially the effect of simulated annealing. Currently, Ja-Be-Ja uses a linear function to decrease the temperature (lines 9 - 13 of the Ja-Be-Ja algorithm), and the temperature is multiplied by the cost function (line 26 of the Ja-Be-Ja algorithm). You will now analyze how changing the simulated annealing parameters, and the acceptance probability function affects the performance of Ja-Be-Ja.
 
-Implementation of simulated annealing, following the description from [this](http://katrinaeg.com/simulated-annealing.html) blog post. Basically, to avoid a local maxima and instead find the global one, we calculate an **acceptance probability**. This probability is used, at random points in the process, to choose whether to accept a temporary worse solution since it could lead to a neighboring solution that leads to the gloabl maximum.
+Part 1. Implementation of simulated annealing, following the description from [this](http://katrinaeg.com/simulated-annealing.html) blog post. Basically, to avoid a local maxima and instead find the global one, we calculate an **acceptance probability**. This probability is used, at random points in the process, to choose whether to accept a temporary worse solution since it could lead to a neighboring solution that leads to the gloabl maximum.
 
 1. Generate a random solution -> in sampleAndSwap() call getNeighbors() which finds a randon neighbor partner for the node
 2. Calculate its cost using the cost function -> in findPartner() use _old_ as the cost function defined in the paper
@@ -38,6 +38,10 @@ Implementation of simulated annealing, following the description from [this](htt
 4. Calculate the new solution's cost -> in findPartner() use _new_ as the cost function defined in the paper
 5. If the new cost is less than the old cost, move to new solution -> in findPartner() the _if_ condition
 6. If new cost is more than old cost, use acceptance probability to choose old solution or not -> accept_prob is computed in findPartner() as suggested in the blog post. Then randommly assign the best partner to be the new solution.
+
+Experiment with different values for the temperature T decrease: alpha belongs to [0.8, 0.99].
+
+Part 2. Restart simulated annealing after a certain number of cycles, depending on the initial T and delta. e.g. for T=2, delta=0.01 after 200 rounds (T/delta). Experiment with different parameters to find lower edge cuts. -> Check on the literature how to reach this and implement.
 
 # Experiments
 At round 1000
