@@ -62,6 +62,7 @@ change delta = [0.8, 0.99], T=1 and alpha the same. With iteration, and without 
 
 With delta = 0.8, T=1, alpha = 2
 | graph | edge-cut expected| edge-cut obtained |
+| --- | --- | --- |
 | add20 | 1206 | x |
 | 3elt	| 390 | x |
 | twitter | 41040 | x |
@@ -70,12 +71,14 @@ Print graphs to see the rate of convergence and comment it.
 
 With delta = 0.9, T=1, alpha = 2
 | graph | edge-cut expected| edge-cut obtained |
+| --- | --- | --- |
 | add20 | 1206 | x |
 | 3elt	| 390 | x |
 | twitter | 41040 | x |
 
 With delta = 0.99, T=1, alpha = 2
 | graph | edge-cut expected| edge-cut obtained |
+| --- | --- | --- |
 | add20 | 1206 | x |
 | 3elt	| 390 | x |
 | twitter | 41040 | x |
