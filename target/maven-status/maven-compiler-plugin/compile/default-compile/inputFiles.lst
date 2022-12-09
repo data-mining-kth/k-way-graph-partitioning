@@ -1,0 +1,10 @@
+/Users/bralli/Dropbox/LM - EIT/2nd YEAR - KTH/Courses/P2/ID2222 Data Mining/k-way-graph-partitioning/src/main/java/se/kth/jabeja/Main.java
+/Users/bralli/Dropbox/LM - EIT/2nd YEAR - KTH/Courses/P2/ID2222 Data Mining/k-way-graph-partitioning/src/main/java/se/kth/jabeja/io/FileIO.java
+/Users/bralli/Dropbox/LM - EIT/2nd YEAR - KTH/Courses/P2/ID2222 Data Mining/k-way-graph-partitioning/src/main/java/se/kth/jabeja/rand/RandNoGenerator.java
+/Users/bralli/Dropbox/LM - EIT/2nd YEAR - KTH/Courses/P2/ID2222 Data Mining/k-way-graph-partitioning/src/main/java/se/kth/jabeja/io/CLI.java
+/Users/bralli/Dropbox/LM - EIT/2nd YEAR - KTH/Courses/P2/ID2222 Data Mining/k-way-graph-partitioning/src/main/java/se/kth/jabeja/Jabeja.java
+/Users/bralli/Dropbox/LM - EIT/2nd YEAR - KTH/Courses/P2/ID2222 Data Mining/k-way-graph-partitioning/src/main/java/se/kth/jabeja/config/Config.java
+/Users/bralli/Dropbox/LM - EIT/2nd YEAR - KTH/Courses/P2/ID2222 Data Mining/k-way-graph-partitioning/src/main/java/se/kth/jabeja/io/GraphReader.java
+/Users/bralli/Dropbox/LM - EIT/2nd YEAR - KTH/Courses/P2/ID2222 Data Mining/k-way-graph-partitioning/src/main/java/se/kth/jabeja/Node.java
+/Users/bralli/Dropbox/LM - EIT/2nd YEAR - KTH/Courses/P2/ID2222 Data Mining/k-way-graph-partitioning/src/main/java/se/kth/jabeja/config/GraphInitColorPolicy.java
+/Users/bralli/Dropbox/LM - EIT/2nd YEAR - KTH/Courses/P2/ID2222 Data Mining/k-way-graph-partitioning/src/main/java/se/kth/jabeja/config/NodeSelectionPolicy.java

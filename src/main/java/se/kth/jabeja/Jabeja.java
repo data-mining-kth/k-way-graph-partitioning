@@ -59,10 +59,14 @@ public class Jabeja {
     // /*
     // With restart
     // System.out.printf("T: %f, Round: %d\n", T, round);
-    if (round%(config.getTemperature()/config.getDelta())==0){
+    //if (round%(config.getTemperature()/config.getDelta())==0){
+      /* 
+    if (round == 250)  {
       T = config.getTemperature();
       System.out.printf("Restart occured!\n");
     }
+    */
+    // /*
     if (T > 1)
       T -= config.getDelta();
     if (T < 1)
@@ -163,7 +167,7 @@ public class Jabeja {
       // the parameter T is for simulated annealing
       // if there are more colors similar to p in the 
       // neighbourhood of q, then the new best partner is q
-      if(new_d*T>old_d || new_d > highestBenefit){
+      if(new_d*T>old_d && new_d > highestBenefit){
         bestPartner = nodeq;
         highestBenefit = new_d;
       }
@@ -192,7 +196,7 @@ public class Jabeja {
       double rand_num = (double)RandNoGenerator.nextInt(1000)/(double)1000;
       
       // randomly select new_d based on acceptance probability
-      if (accept_prob > rand_num){
+      if (accept_prob > rand_num && new_d > highestBenefit){
         bestPartner = nodeq;
         highestBenefit = new_d;
       }     
