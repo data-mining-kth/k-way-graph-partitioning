@@ -60,28 +60,28 @@ At round 1000,
 Task 2 point 1 -> implementation of the new simulated annealing. Observe how these changes affect the rate of convergence.
 change delta = [0.8, 0.99], T=1 and alpha the same. With iteration, and without iteration.
 
-With delta = 0.8, T=1, alpha = 2
-| graph | edge-cut expected| edge-cut obtained |
-| --- | --- | --- |
-| add20 | 1206 | 2385 |
-| 3elt	| 390 | x |
-| twitter | 41040 | x |
+With delta = 0.8, T=1
+| graph | edge-cut expected| edge-cut obtained, alpha = 1 | edge-cut obtained, alpha = 2 | edge-cut obtained, alpha = 5 |
+| --- | --- | --- | --- | --- |
+| add20 | 1206 | 2468 | 2385 | 2512 |
+| 3elt	| 390 | 9259 | 3551 | 3691 |
+| twitter | 41040 | 40855 | 41201 | 42007 |
 
 Print graphs to see the rate of convergence and comment it.
 
-With delta = 0.9, T=1, alpha = 2
-| graph | edge-cut expected| edge-cut obtained |
-| --- | --- | --- |
-| add20 | 1206 | x |
-| 3elt	| 390 | x |
-| twitter | 41040 | x |
+With delta = 0.9, T=1
+| graph | edge-cut expected| edge-cut obtained, alpha = 1 | edge-cut obtained, alpha = 2 | edge-cut obtained, alpha = 5 |
+| --- | --- | --- | --- | --- |
+| add20 | 1206 | 2447 | 2361 | 2495 |
+| 3elt	| 390 | 9203 | 3941 | 3482 |
+| twitter | 41040 | 40824 | 41161 | 41946 |
 
-With delta = 0.99, T=1, alpha = 2
-| graph | edge-cut expected| edge-cut obtained |
-| --- | --- | --- |
-| add20 | 1206 | x |
-| 3elt	| 390 | x |
-| twitter | 41040 | x |
+With delta = 0.99, T=1
+| graph | edge-cut expected| edge-cut obtained, alpha = 1 | edge-cut obtained, alpha = 2 | edge-cut obtained, alpha = 5 |
+| --- | --- | --- | --- | --- |
+| add20 | 1206 | 2470 | 2361 | 2479 |
+| 3elt	| 390 | 9116 | 3893 | 3829 |
+| twitter | 41040 | 40857 | 41187 | 41919 |
 
 
 # Experiments for task 2 point 2
