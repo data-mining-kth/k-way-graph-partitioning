@@ -54,25 +54,32 @@ public class Jabeja {
     // TODO for second task -> done
     // --------------------------------------------------------------
     // Uncomment the following section for Task 1, and comment Task 2
+    // Uncomment for Task 2 point 2
     // --------------------------------------------------------------
-     /*
+    // /*
+    // With restart
+    // System.out.printf("T: %f, Round: %d\n", T, round);
+    if (round%(config.getTemperature()/config.getDelta())==0){
+      T = config.getTemperature();
+      System.out.printf("Restart occured!\n");
+    }
     if (T > 1)
       T -= config.getDelta();
     if (T < 1)
       T = 1;
-     */
+    // */
     
     // --------------------------------------------------------------
     // Uncomment the following section for Task 2, and comment Task 1
     // --------------------------------------------------------------
-    // /*
+     /*
     // change temperature decrease to be non-linear
     // Typical choices for alpha are between 0.8 and 0.99
     // System.out.printf("T: %f\n", T);
     T = T*config.getDelta();
     if (T < 0.00001f)
       T = 0.00001f;
-    // */
+     */
   }
 
   /**
@@ -143,7 +150,7 @@ public class Jabeja {
       // --------------------------------------------------------------
       // Uncomment the following section for Task 1, and comment Task 2
       // --------------------------------------------------------------
-       /*
+      // /*
       // # of neighbors of node p with color like q
       int d_pq = getDegree(nodep, nodeq.getColor());
       
@@ -160,12 +167,12 @@ public class Jabeja {
         bestPartner = nodeq;
         highestBenefit = new_d;
       }
-       */
+      // */
       
       // --------------------------------------------------------------
       // Uncomment the following section for Task 2, and comment Task 1
       // --------------------------------------------------------------
-      // /*
+       /*
       // introduce iterations to improve performance
       // int iter = 0;
       // while(iter<100){
@@ -191,7 +198,7 @@ public class Jabeja {
       }     
 	      // iter++;
       // }
-      // */
+       */
     }
     return bestPartner;
   }
