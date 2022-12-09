@@ -3,7 +3,7 @@
 
 # save output graphs
 set term png small size 1024,786
-set output 'graph.png'
+set output plotname
 
 
 set style line 1 lc rgb "#1a9850" lw 1.5

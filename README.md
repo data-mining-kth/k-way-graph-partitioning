@@ -14,7 +14,7 @@ The metrics which are taken into consideration are: edge-cut, swaps and data mig
 - edge-cut is the number of inter-partition edges, being the energy of the system.
 - swaps is the number of inter-host swaps, indicating the cost of the algorithm.
 - the number of migrations that occur when a node has to be moved from its initial partition to the final one.
-After R=1000 rounds with hybrid (H) candidate selection policy, the best cuts are
+After R=1000 rounds with hybrid (H) candidate selection policy, and simulated annealing using a linear function for the temperature decrease T = T - delta, the best cuts are
 
 ### add20 graph
 With ./run.sh -delta 0.003 -alpha 2 -temp 2 -graph graphs/add20.graph
@@ -49,27 +49,43 @@ Part 1. Implementation of simulated annealing, following the description from [t
 
 Experiment with different values for the temperature T decrease: alpha belongs to [0.8, 0.99].
 
-Part 2. Restart simulated annealing after a certain number of cycles, depending on the initial T and delta. e.g. for T=2, delta=0.01 after 200 rounds (T/delta). Experiment with different parameters to find lower edge cuts. -> Check on the literature how to reach this and implement.
-
 To experiment change parameters that could be set in run.sh
 
 To see these type ./run.sh -help. Commands are -delta, -alpha, -temp, -rounds.
 
-# Experiments
-At round 1000
+Using the simulated annealing implementation clearly improves the rate of convergence in add20 and twitter. While in 3elt it does not improve.
+
+# Experiments for task 2 point 1
+At round 1000, 
 Task 2 point 1 -> implementation of the new simulated annealing. Observe how these changes affect the rate of convergence.
-## 3elt graph
-delta = 0.003, T_alpha = 0.8, T=1 -> edge cut: , swaps: , migrations: 
-delta = 0.003, T_alpha = 0.9, T=1 -> edge cut: 3851, swaps: 4718934, migrations: 3501 
-delta = 0.003, T_alpha = 0.99, T=1 -> edge cut: , swaps: , migrations: 
-## add20 graph
-delta = 0.003, T_alpha = 0.8, T=1 -> edge cut: , swaps: , migrations: 
-delta = 0.003, T_alpha = 0.9, T=1 -> edge cut: 2503, swaps: 2393070, migrations: 1734 
-delta = 0.003, T_alpha = 0.99, T=1 -> edge cut: , swaps: , migrations: 
-## facebook graph
-delta = 0.003, T_alpha = 0.8, T=1 -> edge cut: , swaps: , migrations: 
-delta = 0.003, T_alpha = 0.9, T=1 -> edge cut: 163731, swaps: 62882729, migrations: 4757
-delta = 0.003, T_alpha = 0.99, T=1 -> edge cut: , swaps: , migrations: 
+change delta = [0.8, 0.99], T=1 and alpha the same. With iteration, and without iteration.
+
+With delta = 0.8, T=1, alpha = 2
+| graph | edge-cut expected| edge-cut obtained |
+| --- | --- | --- |
+| add20 | 1206 | 2385 |
+| 3elt	| 390 | x |
+| twitter | 41040 | x |
+
+Print graphs to see the rate of convergence and comment it.
+
+With delta = 0.9, T=1, alpha = 2
+| graph | edge-cut expected| edge-cut obtained |
+| --- | --- | --- |
+| add20 | 1206 | x |
+| 3elt	| 390 | x |
+| twitter | 41040 | x |
+
+With delta = 0.99, T=1, alpha = 2
+| graph | edge-cut expected| edge-cut obtained |
+| --- | --- | --- |
+| add20 | 1206 | x |
+| 3elt	| 390 | x |
+| twitter | 41040 | x |
 
 
-Task 2 point 2 -> change T and delta to find lower cuts. 
+# Experiments for task 2 point 2
+
+Change T and delta to find lower cuts. 
+
+Part 2. Restart simulated annealing after a certain number of cycles, depending on the initial T and delta. e.g. for T=2, delta=0.01 after 200 rounds (T/delta). Experiment with different parameters to find lower edge cuts. -> Check on the literature how to reach this and implement.
