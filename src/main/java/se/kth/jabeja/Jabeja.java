@@ -56,7 +56,7 @@ public class Jabeja {
     // Uncomment the following section for Task 1, and comment Task 2
     // Uncomment for Task 2 point 2
     // --------------------------------------------------------------
-    // /*
+    /*
     // With restart
     // System.out.printf("T: %f, Round: %d\n", T, round);
     
@@ -69,19 +69,19 @@ public class Jabeja {
       T -= config.getDelta();
     if (T < 1)
       T = 1;
-    // */
+    */
     
     // --------------------------------------------------------------
     // Uncomment the following section for Task 2, and comment Task 1
     // --------------------------------------------------------------
-     /*
+    // /*
     // change temperature decrease to be non-linear
     // Typical choices for alpha are between 0.8 and 0.99
     // System.out.printf("T: %f\n", T);
     T = T*config.getDelta();
     if (T < 0.00001f)
       T = 0.00001f;
-     */
+    // */
   }
 
   /**
@@ -152,7 +152,7 @@ public class Jabeja {
       // --------------------------------------------------------------
       // Uncomment the following section for Task 1, and comment Task 2
       // --------------------------------------------------------------
-      // /*
+      /*
       // # of neighbors of node p with color like q
       int d_pq = getDegree(nodep, nodeq.getColor());
       
@@ -169,12 +169,12 @@ public class Jabeja {
         bestPartner = nodeq;
         highestBenefit = new_d;
       }
-      // */
+      */
       
       // --------------------------------------------------------------
       // Uncomment the following section for Task 2, and comment Task 1
       // --------------------------------------------------------------
-       /*
+      // /*
       // introduce iterations to improve performance
       // int iter = 0;
       // while(iter<100){
@@ -188,13 +188,21 @@ public class Jabeja {
       double new_d = Math.pow(d_pq, alpha) + Math.pow(d_qp, alpha);
       
       // compute acceptance probability: [0,1]
+      // original
+      /*
       double accept_prob = Math.pow(Math.E,(new_d-old_d)/T);
       if (accept_prob > 1)
         accept_prob = 1;
+      */
       
+      // custom acceptance probability
+      // -> make it easier to accept worse solutions
+      // double accept_prob = (new_d-old_d)/T+1;
+      double accept_prob = Math.pow(Math.E, -Math.pow(new_d-old_d,2)*Math.pow(T, 1/2));
       // generate random # to compare with accepance probability
       double rand_num = (double)RandNoGenerator.nextInt(1000)/(double)1000;
-      // System.out.printf("Acc. prob: %f; rand_num: %f\n", accept_prob, rand_num);
+      if (accept_prob > 1)
+        accept_prob = 1;
       
       // randomly select new_d based on acceptance probability
       if (new_d > old_d && new_d > highestBenefit){
@@ -207,7 +215,7 @@ public class Jabeja {
       }     
 	      // iter++;
       // }
-       */
+      // */
     }
     return bestPartner;
   }
