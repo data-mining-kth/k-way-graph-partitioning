@@ -25,19 +25,19 @@ The metrics which are taken into consideration are: edge-cut, swaps and data mig
 - the number of **migrations** that occur when a node has to be moved from its initial partition to the final one.
 After R=1000 rounds with hybrid (H) candidate selection policy, and simulated annealing using a linear function for the temperature decrease T = T - delta, the best edge cuts values are:
 
-### add20 graph (2095)
+#### Best edge-cut value for add20 graph (2095)
 With ./run.sh -delta 0.003 -alpha 2 -temp 2 -graph graphs/add20.graph
 
 INFO  Jabeja:327 - round: 999, edge cut:**2095**, swaps: 1090263, migrations: 1751
 ![add20](plots/graph_add20.png)
 
-### 3elt graph (2604)
+#### Best edge-cut value for 3elt graph (2604)
 With ./run.sh -delta 0.003 -alpha 2 -temp 2 -graph graphs/3elt.graph
 
 INFO  Jabeja:327 - round: 999, edge cut:**2604**, swaps: 1580209, migrations: 3328
 ![3elt](plots/graph_3elt.png)
 
-### Twitter graph (41156)
+#### Best edge-cut value for twitter graph (41156)
 With ./run.sh -delta 0.003 -alpha 2 -temp 2 -graph graphs/twitter.graph
 
 INFO  Jabeja:327 - round: 999, edge cut:**41156**, swaps: 899515, migrations: 2049
@@ -116,3 +116,5 @@ With delta = 0.003, T=2
 
 #### Best edge-cut value for twitter graph (40969)
 ![add20](plots/graph_twitter_D0.003_T2.0_A1.0.png)
+
+## Task 3 - Custom Acceptance Probability Function
