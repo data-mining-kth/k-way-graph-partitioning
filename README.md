@@ -58,7 +58,7 @@ Using the simulated annealing implementation clearly improves the rate of conver
 # Experiments for task 2 point 1
 At round 1000, 
 Task 2 point 1 -> implementation of the new simulated annealing. Observe how these changes affect the rate of convergence.
-change delta = [0.8, 0.99], T=1 and alpha the same. With iteration, and without iteration.
+change delta = [0.8, 0.9, 0.99] and T=1. With iteration, and without iteration.
 
 With delta = 0.8, T=1
 | graph | edge-cut expected| edge-cut obtained, alpha = 1 | edge-cut obtained, alpha = 2 | edge-cut obtained, alpha = 5 |
@@ -72,9 +72,9 @@ Print graphs to see the rate of convergence and comment it.
 With delta = 0.9, T=1
 | graph | edge-cut expected| edge-cut obtained, alpha = 1 | edge-cut obtained, alpha = 2 | edge-cut obtained, alpha = 5 |
 | --- | --- | --- | --- | --- |
-| add20 | 1206 | 2447 | 2361 | 2495 |
-| 3elt	| 390 | 9203 | 3941 | 3482 |
-| twitter | 41040 | 40824 | 41161 | 41946 |
+| add20 | 1206 | 2447 | **2361** | 2495 |
+| 3elt	| 390 | 9203 | 3941 | **3482** |
+| twitter | 41040 | **40824** | 41161 | 41946 |
 
 With delta = 0.99, T=1
 | graph | edge-cut expected| edge-cut obtained, alpha = 1 | edge-cut obtained, alpha = 2 | edge-cut obtained, alpha = 5 |
@@ -83,9 +83,24 @@ With delta = 0.99, T=1
 | 3elt	| 390 | 9116 | 3893 | 3829 |
 | twitter | 41040 | 40857 | 41187 | 41919 |
 
+### Best edge-cut values add20 graph
+![add20](plots/graph_add20_D0.9_T1.0_A2.0.png)
+
+### Best edge-cut values 3elt graph
+![add20](plots/graph_3elt_D0.9_T1.0_A5.0.png)
+
+### Best edge-cut values twitter graph
+![add20](plots/graph_twitter_D0.9_T1.0_A1.0.png)
 
 # Experiments for task 2 point 2
 
 Change T and delta to find lower cuts. 
 
 Part 2. Restart simulated annealing after a certain number of cycles, depending on the initial T and delta. e.g. for T=2, delta=0.01 after 200 rounds (T/delta). Experiment with different parameters to find lower edge cuts. -> Check on the literature how to reach this and implement.
+
+With delta = 0.003, T=2
+| graph | edge-cut expected| edge-cut obtained, alpha = 1 | edge-cut obtained, alpha = 2 | edge-cut obtained, alpha = 5 |
+| --- | --- | --- | --- | --- |
+| add20 | 1206 | 2057 | **1814** | 2237 |
+| 3elt	| 390 | 2329 | 2474 | **2071** |
+| twitter | 41040 | 41126 | **40969** | 41523 |
