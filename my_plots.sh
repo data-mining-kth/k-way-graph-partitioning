@@ -25,4 +25,8 @@ echo "filename: $filename"
 gnuplot -e "plotname='$plotname'; filename='$filename'" my_graph.gnuplot
 
 echo "Opening plot....."
+<<<<<<< HEAD
 xdg-open $plotname
+=======
+#open $plotname
+>>>>>>> main

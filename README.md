@@ -1,44 +1,62 @@
-# distributed balanced k-way graph partitioning
+# K-way Graph Partitioning with JaBeJa
 
-Authors: Brando Chiminelli, Tommaso Praturlon
+Contributors:
+<a href="https://github.com/Bralli99">Brando Chiminelli</a>, 
+<a href="https://github.com/boyscout99">Tommaso Praturlon</a>
 
-To run the program in Task 1 do
+Course: <a href="[https://id2223kth.github.io/](https://www.kth.se/social/course/ID2222/)">Data Mining</a>, at <a href="https://www.kth.se/en">KTH Royal Institute of Technology</a>
+
+## About
+
+This project is about experimenting with the implementation of the **Ja-Be-Ja algorithm**, a K-way partitioning algorithm based on the concept of **simulated annealing**. Ja-Be-Ja algorithm provides a smart and decentralized solution to partition large graphs by randomly assigning classes (colors) to the nodes and computing the local energy between nodes, their connections, and an assigned random subset of nodes. The local energy corresponds to the entropy between the connections of a node and its partners (connected nodes and subset). 
+
+Therefore, the goal of the algorithm is to reduce this entropy (energy) in order to define a balanced partitioning. To reduce this entropy, the nodes are compared to their partners by means of computing their energy with its current color and when switching colors with the presented partner. If the energy between the node and partner reduces when they switch colors, it means that a better balance has been found and the node and partner should swap colors.
+
+In order to not get stuck into a local minimum, Ja-Be-Ja employs the **simulated annealing method** based on the temperature of the systems, which cools down during the process to increses the chances to find a better local minimum or even the global minimum.
+
+## How to run 
+To run the program with the run.sh script
 - ./compile.sh
 - ./run.sh -graph {path/to/graph/}, e.g. `./run.sh -graph ./graphs/3elt.graph`
 - ./plot.sh {path/to/output}, e.g. `./plot.sh output/3elt.graph_NS_HYBRID_GICP_ROUND_ROBIN_T_2.0_D_0.003_RNSS_3_URSS_6_A_2.0_R_1000.txt`
 
-## Task 1 
+To run the program with the my_plots.sh script
+- ./compile.sh
+- ./my_plots.sh {**delta** value} {**temp** value} {**alpha** value} {name of the graph}, e.g. `./my_plots.sh 0.003 2.0 2.0 3elt`
+
+## Task 1 - JaBeJa implementation
 Experiments for graphs: 3elt.graph, add20.graph, facebook.graph.
 The plots show the performance of JaBeJa with three different graphs, which are the same used in the paper.
 The metrics which are taken into consideration are: edge-cut, swaps and data migration.
-- edge-cut is the number of inter-partition edges, being the energy of the system.
-- swaps is the number of inter-host swaps, indicating the cost of the algorithm.
-- the number of migrations that occur when a node has to be moved from its initial partition to the final one.
-After R=1000 rounds with hybrid (H) candidate selection policy, and simulated annealing using a linear function for the temperature decrease T = T - delta, the best cuts are
+- **edge-cut** is the number of inter-partition edges, being the energy of the system.
+- **swaps** is the number of inter-host swaps, indicating the cost of the algorithm.
+- the number of **migrations** that occur when a node has to be moved from its initial partition to the final one.
+After R=1000 rounds with hybrid (H) candidate selection policy, and simulated annealing using a linear function for the temperature decrease T = T - delta, the best edge cuts values are:
 
-### add20 graph
+#### Best edge-cut value for add20 graph (2095)
 With ./run.sh -delta 0.003 -alpha 2 -temp 2 -graph graphs/add20.graph
 
-INFO  Jabeja:283 - round: 999, edge cut:5558, swaps: 2395000, migrations: 1628
+INFO  Jabeja:327 - round: 999, edge cut:**2095**, swaps: 1090263, migrations: 1751
 ![add20](plots/graph_add20.png)
 
-### 3elt graph
+#### Best edge-cut value for 3elt graph (2604)
 With ./run.sh -delta 0.003 -alpha 2 -temp 2 -graph graphs/3elt.graph
 
-INFO  Jabeja:283 - round: 999, edge cut:3807, swaps: 4720000, migrations: 3543
+INFO  Jabeja:327 - round: 999, edge cut:**2604**, swaps: 1580209, migrations: 3328
 ![3elt](plots/graph_3elt.png)
 
-### Twitter graph
+#### Best edge-cut value for twitter graph (41156)
 With ./run.sh -delta 0.003 -alpha 2 -temp 2 -graph graphs/twitter.graph
 
-INFO  Jabeja:283 - round: 999, edge cut:120218, swaps: 2731000, migrations: 2040
+INFO  Jabeja:327 - round: 999, edge cut:**41156**, swaps: 899515, migrations: 2049
 ![twitter](plots/graph_twitter.png)
 
-## Task 2
+## Task 2 - Different JaBeJa configurations
 
-In this task, you are to analyze how the algorithm's performance is affected when different parameters are changed, especially the effect of simulated annealing. Currently, Ja-Be-Ja uses a linear function to decrease the temperature (lines 9 - 13 of the Ja-Be-Ja algorithm), and the temperature is multiplied by the cost function (line 26 of the Ja-Be-Ja algorithm). You will now analyze how changing the simulated annealing parameters, and the acceptance probability function affects the performance of Ja-Be-Ja.
+In this task, we analyze how the algorithm's performance is affected when different parameters are changed, especially the effect of simulated annealing. In the Task 1, Ja-Be-Ja uses a linear function to decrease the temperature and the temperature is multiplied by the cost function. Now, we will analyze how changing the simulated annealing parameters, and the acceptance probability function affects the performance of Ja-Be-Ja.
 
-Part 1. Implementation of simulated annealing, following the description from [this](http://katrinaeg.com/simulated-annealing.html) blog post. Basically, to avoid a local maxima and instead find the global one, we calculate an **acceptance probability**. This probability is used, at random points in the process, to choose whether to accept a temporary worse solution since it could lead to a neighboring solution that leads to the gloabl maximum.
+### Part 1 - Implementation of Simulated Annealing
+Following the description from [this](http://katrinaeg.com/simulated-annealing.html) blog post we implemented a different simulated annealing. Basically, to avoid a local maxima and instead find the global one, we calculate an **acceptance probability**. This probability is used, at random points in the process, to choose whether to accept a temporary worse solution since it could lead to a neighboring solution that leads to the gloabl maximum.
 
 1. Generate a random solution -> in sampleAndSwap() call getNeighbors() which finds a randon neighbor partner for the node
 2. Calculate its cost using the cost function -> in findPartner() use _old_ as the cost function defined in the paper
@@ -47,18 +65,11 @@ Part 1. Implementation of simulated annealing, following the description from [t
 5. If the new cost is less than the old cost, move to new solution -> in findPartner() the _if_ condition
 6. If new cost is more than old cost, use acceptance probability to choose old solution or not -> accept_prob is computed in findPartner() as suggested in the blog post. Then randommly assign the best partner to be the new solution.
 
-Experiment with different values for the temperature T decrease: alpha belongs to [0.8, 0.99].
+Using the simulated annealing implementation we see that for add20 and twitter graphs the value of edge-cuts converges more rapidly, but the performance is actually slightly improved only for twitter.
 
-To experiment change parameters that could be set in run.sh
-
-To see these type ./run.sh -help. Commands are -delta, -alpha, -temp, -rounds.
-
-Using the simulated annealing implementation clearly improves the rate of convergence in add20 and twitter. While in 3elt it does not improve.
-
-# Experiments for task 2 point 1
-At round 1000, 
-Task 2 point 1 -> implementation of the new simulated annealing. Observe how these changes affect the rate of convergence.
-change delta = [0.8, 0.99], T=1 and alpha the same. With iteration, and without iteration.
+### Experiments for Task 2 - Part 1
+Implementation of the new simulated annealing. Observe how these changes affect the rate of convergence.
+change delta = [0.8, 0.9, 0.99] and T=1.
 
 With delta = 0.8, T=1
 | graph | edge-cut expected| edge-cut obtained, alpha = 1 | edge-cut obtained, alpha = 2 | edge-cut obtained, alpha = 5 |
@@ -72,9 +83,9 @@ Print graphs to see the rate of convergence and comment it.
 With delta = 0.9, T=1
 | graph | edge-cut expected| edge-cut obtained, alpha = 1 | edge-cut obtained, alpha = 2 | edge-cut obtained, alpha = 5 |
 | --- | --- | --- | --- | --- |
-| add20 | 1206 | 2447 | 2361 | 2495 |
-| 3elt	| 390 | 9203 | 3941 | 3482 |
-| twitter | 41040 | 40824 | 41161 | 41946 |
+| add20 | 1206 | 2447 | **2361** | 2495 |
+| 3elt	| 390 | 9203 | 3941 | **3482** |
+| twitter | 41040 | **40824** | 41161 | 41946 |
 
 With delta = 0.99, T=1
 | graph | edge-cut expected| edge-cut obtained, alpha = 1 | edge-cut obtained, alpha = 2 | edge-cut obtained, alpha = 5 |
@@ -83,9 +94,39 @@ With delta = 0.99, T=1
 | 3elt	| 390 | 9116 | 3893 | 3829 |
 | twitter | 41040 | 40857 | 41187 | 41919 |
 
+#### Best edge-cut value for add20 graph (2361)
+![add20](plots/graph_add20_D0.9_T1.0_A2.0.png)
 
-# Experiments for task 2 point 2
+#### Best edge-cut value for 3elt graph (3482)
+![3elt](plots/graph_3elt_D0.9_T1.0_A5.0.png)
 
-Change T and delta to find lower cuts. 
+#### Best edge-cut value for twitter graph (40824)
+![twitter](plots/graph_twitter_D0.9_T1.0_A1.0.png)
 
-Part 2. Restart simulated annealing after a certain number of cycles, depending on the initial T and delta. e.g. for T=2, delta=0.01 after 200 rounds (T/delta). Experiment with different parameters to find lower edge cuts. -> Check on the literature how to reach this and implement.
+### Part 2 - Implementation of Restart
+Here we investigate how the Ja-Be-Ja algorithm behaves when the simulated annealing is restarted after Ja-Be-Ja has converged. For example, if T is 2 and delta is 0.01, then after 400 rounds, the temperature will cool down to 1, and no more bad-swaps will be accepted. Ja-Be-Ja will converge soon after that. We implement the simulated-annealing restart after 400 rounds. We also experiment with different parameters and configurations to find lower edge cuts.
+
+What we see is that with all the three graphs we experience an improvement in the performance thanks to the restart.
+
+### Experiments for task 2 point 2
+With delta = 0.003, T=2
+| graph | edge-cut expected| edge-cut obtained, alpha = 1 | edge-cut obtained, alpha = 2 | edge-cut obtained, alpha = 5 |
+| --- | --- | --- | --- | --- |
+| add20 | 1206 | **1814** | 2057 | 2237 |
+| 3elt	| 390 | 2474 | 2329 | **2071** |
+| twitter | 41040 | **40969** | 41126 | 41523 |
+
+#### Best edge-cut value for add20 graph (1814)
+![add20](plots/graph_add20_D0.003_T2.0_A1.0.png)
+
+#### Best edge-cut value for 3elt graph (2071)
+![add20](plots/graph_3elt_D0.003_T2.0_A5.0.png)
+
+#### Best edge-cut value for twitter graph (40969)
+![add20](plots/graph_twitter_D0.003_T2.0_A1.0.png)
+
+## Task 3 - Custom Acceptance Probability Function
+
+With the default acceptance probability, when a old\_d is way better than the new\_d, there is high chance that the new solution won't be picked. This is even more true when the temperature decreases since the exponential become steeper. 
+
+To make the acceptance of new solutions when these should be rejected, delta is used as T*delta. The lower the delta, the faster the exponential will become steep. Therefore, to try to favour bad solutions and maybe avoid local maxima, we can try to slow down the effect by acting on T.
