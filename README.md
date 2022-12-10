@@ -131,6 +131,8 @@ With the default acceptance probability, when a old\_d is way better than the ne
 
 To make the acceptance of new solutions when these should be rejected, delta is used as T\*delta. The lower the delta, the faster the exponential will become steep. Therefore, to try to favour bad solutions and maybe avoid local maxima, we can try to slow down the effect by acting on T.
 
+Custom function: Gaussian with exp(-(new_d-old_d)^2*sqrt(T)) to dumpen the effect of decreasing T.
+
 | graph | parameters | edge-cut default function | edge-cut custom function |
 | --- | --- | --- | --- |
 | 3elt | delta=0.9, alpha=2.0, T=1.0 | 3941 | **2324** |
