@@ -129,6 +129,10 @@ With delta = 0.003, T=2
 
 With the default acceptance probability, when a old\_d is way better than the new\_d, there is high chance that the new solution won't be picked. This is even more true when the temperature decreases since the exponential become steeper. 
 
-To make the acceptance of new solutions when these should be rejected, delta is used as T*delta. The lower the delta, the faster the exponential will become steep. Therefore, to try to favour bad solutions and maybe avoid local maxima, we can try to slow down the effect by acting on T.
+To make the acceptance of new solutions when these should be rejected, delta is used as T\*delta. The lower the delta, the faster the exponential will become steep. Therefore, to try to favour bad solutions and maybe avoid local maxima, we can try to slow down the effect by acting on T.
+
+| graph | parameters | edge-cut default function | edge-cut custom function |
+| --- | --- | --- | --- |
+| 3elt | delta=0.9, alpha=2.0, T=1.0 | 3941 | **2324** |
 
 ![3elt_custom](plots/graph_3elt_D0.9_T1.0_A2.0_custom.png)
