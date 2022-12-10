@@ -51,7 +51,7 @@ With ./run.sh -delta 0.003 -alpha 2 -temp 2 -graph graphs/twitter.graph
 INFO  Jabeja:327 - round: 999, edge cut:**41156**, swaps: 899515, migrations: 2049
 ![twitter](plots/graph_twitter.png)
 
-## Task 2 - Different JaBeJa configurations
+## Task 2 - JaBeJa with non-linear temperature decrease
 
 In this task, we analyze how the algorithm's performance is affected when different parameters are changed, especially the effect of simulated annealing. In the Task 1, Ja-Be-Ja uses a linear function to decrease the temperature and the temperature is multiplied by the cost function. Now, we will analyze how changing the simulated annealing parameters, and the acceptance probability function affects the performance of Ja-Be-Ja.
 
@@ -108,7 +108,7 @@ Here we investigate how the Ja-Be-Ja algorithm behaves when the simulated anneal
 
 What we see is that with all the three graphs we experience an improvement in the performance thanks to the restart.
 
-### Experiments for task 2 point 2
+### Experiments for Task 2 point 2
 With delta = 0.003, T=2
 | graph | edge-cut expected| edge-cut obtained, alpha = 1 | edge-cut obtained, alpha = 2 | edge-cut obtained, alpha = 5 |
 | --- | --- | --- | --- | --- |
@@ -127,11 +127,11 @@ With delta = 0.003, T=2
 
 ## Task 3 - Custom Acceptance Probability Function
 
-With the default acceptance probability, when a old\_d is way better than the new\_d, there is high chance that the new solution won't be picked. This is even more true when the temperature decreases since the exponential become steeper. 
+With the default acceptance probability, the one used in Task 2 point 1, we introduced a function that made the rejection of a swap with lower cost less certain. However, the acceptance probability defined in that way, makes the choice of a temporary non-optimal solution impossible after some rounds. This is because as the temperature decreases very fast, the acceptance probabilty becomes very close to zero every time the non-optimal solution is found. 
 
-To make the acceptance of new solutions when these should be rejected, delta is used as T\*delta. The lower the delta, the faster the exponential will become steep. Therefore, to try to favour bad solutions and maybe avoid local maxima, we can try to slow down the effect by acting on T.
+For this reason, we wanted to experiment with a different custom function which could slightly inhibit this behaviour. We decided to use a Gaussian function of the form exp(-(new\_d-old\_d)^2\*sqrt(T)) to dumpen the effect of decreasing T when there are non-optimal solutions, i.e. when old\_d is greater than new\_d as defined in our code.
 
-Custom function: Gaussian with exp(-(new_d-old_d)^2*sqrt(T)) to dumpen the effect of decreasing T.
+Even though this change does not improve much with graphs add20 or twitter, it does show a better cut for 3elt. The reason may lie in the fact that the previous solution converged very rapidly to a local minima which was anyway too high. While with this new proposed solution, the increased probability of acceping a temporary sub-optimal solution, actually allowed the algorithm to find a better cut, as shown in the table and picture below.
 
 | graph | parameters | edge-cut default function | edge-cut custom function |
 | --- | --- | --- | --- |
