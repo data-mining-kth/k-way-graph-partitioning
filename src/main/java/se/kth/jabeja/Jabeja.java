@@ -323,12 +323,12 @@ public class Jabeja {
 
     int edgeCut = grayLinks / 2;
     // suppress logger except last round
-    //if (round == config.getRounds()-1){
+    if (round == config.getRounds()-1){
     logger.info("round: " + round +
             ", edge cut:" + edgeCut +
             ", swaps: " + numberOfSwaps +
             ", migrations: " + migrations);
-    //}
+    }
     saveToFile(edgeCut, migrations);
   }
 
