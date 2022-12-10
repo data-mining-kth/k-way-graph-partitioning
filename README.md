@@ -19,19 +19,19 @@ After R=1000 rounds with hybrid (H) candidate selection policy, and simulated an
 ### add20 graph
 With ./run.sh -delta 0.003 -alpha 2 -temp 2 -graph graphs/add20.graph
 
-INFO  Jabeja:283 - round: 999, edge cut:5558, swaps: 2395000, migrations: 1628
+INFO  Jabeja:327 - round: 999, edge cut:2095, swaps: 1090263, migrations: 1751
 ![add20](plots/graph_add20.png)
 
 ### 3elt graph
 With ./run.sh -delta 0.003 -alpha 2 -temp 2 -graph graphs/3elt.graph
 
-INFO  Jabeja:283 - round: 999, edge cut:3807, swaps: 4720000, migrations: 3543
+INFO  Jabeja:327 - round: 999, edge cut:2604, swaps: 1580209, migrations: 3328
 ![3elt](plots/graph_3elt.png)
 
 ### Twitter graph
 With ./run.sh -delta 0.003 -alpha 2 -temp 2 -graph graphs/twitter.graph
 
-INFO  Jabeja:283 - round: 999, edge cut:120218, swaps: 2731000, migrations: 2040
+INFO  Jabeja:327 - round: 999, edge cut:41156, swaps: 899515, migrations: 2049
 ![twitter](plots/graph_twitter.png)
 
 ## Task 2
