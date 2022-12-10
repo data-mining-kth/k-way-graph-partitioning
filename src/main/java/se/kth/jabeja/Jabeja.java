@@ -201,8 +201,6 @@ public class Jabeja {
       double accept_prob = Math.pow(Math.E, -Math.pow(new_d-old_d,2)*Math.pow(T, 1/2));
       // generate random # to compare with accepance probability
       double rand_num = (double)RandNoGenerator.nextInt(1000)/(double)1000;
-      if (accept_prob > 1)
-        accept_prob = 1;
       
       // randomly select new_d based on acceptance probability
       if (new_d > old_d && new_d > highestBenefit){
