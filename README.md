@@ -126,3 +126,7 @@ With delta = 0.003, T=2
 ![add20](plots/graph_twitter_D0.003_T2.0_A1.0.png)
 
 ## Task 3 - Custom Acceptance Probability Function
+
+With the default acceptance probability, when a old\_d is way better than the new\_d, there is high chance that the new solution won't be picked. This is even more true when the temperature decreases since the exponential become steeper. 
+
+To make the acceptance of new solutions when these should be rejected, delta is used as T*delta. The lower the delta, the faster the exponential will become steep. Therefore, to try to favour bad solutions and maybe avoid local maxima, we can try to slow down the effect by acting on T.
