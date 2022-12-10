@@ -56,30 +56,32 @@ public class Jabeja {
     // Uncomment the following section for Task 1, and comment Task 2
     // Uncomment for Task 2 point 2
     // --------------------------------------------------------------
-    // /*
+     /*
     // With restart
     // System.out.printf("T: %f, Round: %d\n", T, round);
+    
     if (round%(config.getTemperature()/config.getDelta())==0){
       T = config.getTemperature();
       System.out.printf("Restart occured!\n");
     }
+   
     if (T > 1)
       T -= config.getDelta();
     if (T < 1)
       T = 1;
-    // */
+     */
     
     // --------------------------------------------------------------
     // Uncomment the following section for Task 2, and comment Task 1
     // --------------------------------------------------------------
-     /*
+    // /*
     // change temperature decrease to be non-linear
     // Typical choices for alpha are between 0.8 and 0.99
     // System.out.printf("T: %f\n", T);
     T = T*config.getDelta();
     if (T < 0.00001f)
       T = 0.00001f;
-     */
+    // */
   }
 
   /**
@@ -150,7 +152,7 @@ public class Jabeja {
       // --------------------------------------------------------------
       // Uncomment the following section for Task 1, and comment Task 2
       // --------------------------------------------------------------
-      // /*
+       /*
       // # of neighbors of node p with color like q
       int d_pq = getDegree(nodep, nodeq.getColor());
       
@@ -163,16 +165,16 @@ public class Jabeja {
       // the parameter T is for simulated annealing
       // if there are more colors similar to p in the 
       // neighbourhood of q, then the new best partner is q
-      if(new_d*T>old_d || new_d > highestBenefit){
+      if(new_d*T>old_d && new_d > highestBenefit){
         bestPartner = nodeq;
         highestBenefit = new_d;
       }
-      // */
+       */
       
       // --------------------------------------------------------------
       // Uncomment the following section for Task 2, and comment Task 1
       // --------------------------------------------------------------
-       /*
+      // /*
       // introduce iterations to improve performance
       // int iter = 0;
       // while(iter<100){
@@ -187,18 +189,25 @@ public class Jabeja {
       
       // compute acceptance probability: [0,1]
       double accept_prob = Math.pow(Math.E,(new_d-old_d)/T);
+      if (accept_prob > 1)
+        accept_prob = 1;
       
       // generate random # to compare with accepance probability
       double rand_num = (double)RandNoGenerator.nextInt(1000)/(double)1000;
+      // System.out.printf("Acc. prob: %f; rand_num: %f\n", accept_prob, rand_num);
       
       // randomly select new_d based on acceptance probability
-      if (accept_prob > rand_num){
+      if (new_d > old_d && new_d > highestBenefit){
+        bestPartner = nodeq;
+        highestBenefit = new_d;
+      }
+      else if (accept_prob > rand_num){
         bestPartner = nodeq;
         highestBenefit = new_d;
       }     
 	      // iter++;
       // }
-       */
+      // */
     }
     return bestPartner;
   }
@@ -314,12 +323,12 @@ public class Jabeja {
 
     int edgeCut = grayLinks / 2;
     // suppress logger except last round
-    if (round == config.getRounds()-1){
+    //if (round == config.getRounds()-1){
     logger.info("round: " + round +
             ", edge cut:" + edgeCut +
             ", swaps: " + numberOfSwaps +
             ", migrations: " + migrations);
-    }
+    //}
     saveToFile(edgeCut, migrations);
   }
 
