@@ -12,17 +12,17 @@ This project is about experimenting with the implementation of the **Ja-Be-Ja al
 
 Therefore, the goal of the algorithm is to reduce this entropy (energy) in order to define a balanced partitioning. To reduce this entropy, the nodes are compared to their partners by means of computing their energy with its current color and when switching colors with the presented partner. If the energy between the node and partner reduces when they switch colors, it means that a better balance has been found and the node and partner should swap colors.
 
-In order to not get stuck into a local minimum, Ja-Be-Ja employs the **simulated annealing method** based on the temperature of the systems, which cools down during the process to increses the chances to find a better local minimum or even the global minimum.
+In order to not get stuck into a local minimum, Ja-Be-Ja employs the **simulated annealing method** based on the temperature of the systems, which cools down during the process to increse the chances of finding a better local minimum or even the global minimum.
 
 ## How to run 
 To run the program with the run.sh script
-- ./compile.sh
-- ./run.sh -graph {path/to/graph/}, e.g. `./run.sh -graph ./graphs/3elt.graph`
-- ./plot.sh {path/to/output}, e.g. `./plot.sh output/3elt.graph_NS_HYBRID_GICP_ROUND_ROBIN_T_2.0_D_0.003_RNSS_3_URSS_6_A_2.0_R_1000.txt`
+- `./compile.sh`
+- `./run.sh -graph {path/to/graph/}`, e.g. `./run.sh -graph ./graphs/3elt.graph`
+- `./plot.sh {path/to/output}`, e.g. `./plot.sh output/3elt.graph_NS_HYBRID_GICP_ROUND_ROBIN_T_2.0_D_0.003_RNSS_3_URSS_6_A_2.0_R_1000.txt`
 
-To run the program with the my_plots.sh script
-- ./compile.sh
-- ./my_plots.sh {**delta** value} {**temp** value} {**alpha** value} {name of the graph}, e.g. `./my_plots.sh 0.003 2.0 2.0 3elt`
+To run the program with the my_plots.sh script, which combines run.sh and plot.sh
+- `./compile.sh`
+- `./my_plots.sh {**delta** value} {**temp** value} {**alpha** value} {name of the graph}`, e.g. `./my_plots.sh 0.003 2.0 2.0 3elt`
 
 ## Task 1 - JaBeJa implementation
 Experiments for graphs: 3elt.graph, add20.graph, facebook.graph.
@@ -34,26 +34,26 @@ The metrics which are taken into consideration are: edge-cut, swaps and data mig
 After R=1000 rounds with hybrid (H) candidate selection policy, and simulated annealing using a linear function for the temperature decrease T = T - delta, the best edge cuts values are:
 
 #### Best edge-cut value for add20 graph (2095)
-With ./run.sh -delta 0.003 -alpha 2 -temp 2 -graph graphs/add20.graph
+With `./run.sh -delta 0.003 -alpha 2 -temp 2 -graph graphs/add20.graph`
 
 INFO  Jabeja:327 - round: 999, edge cut:**2095**, swaps: 1090263, migrations: 1751
 ![add20](plots/graph_add20.png)
 
 #### Best edge-cut value for 3elt graph (2604)
-With ./run.sh -delta 0.003 -alpha 2 -temp 2 -graph graphs/3elt.graph
+With `./run.sh -delta 0.003 -alpha 2 -temp 2 -graph graphs/3elt.graph`
 
 INFO  Jabeja:327 - round: 999, edge cut:**2604**, swaps: 1580209, migrations: 3328
 ![3elt](plots/graph_3elt.png)
 
 #### Best edge-cut value for twitter graph (41156)
-With ./run.sh -delta 0.003 -alpha 2 -temp 2 -graph graphs/twitter.graph
+With `./run.sh -delta 0.003 -alpha 2 -temp 2 -graph graphs/twitter.graph`
 
 INFO  Jabeja:327 - round: 999, edge cut:**41156**, swaps: 899515, migrations: 2049
 ![twitter](plots/graph_twitter.png)
 
 ## Task 2 - JaBeJa with non-linear temperature decrease
 
-In this task, we analyze how the algorithm's performance is affected when different parameters are changed, especially the effect of simulated annealing. In the Task 1, Ja-Be-Ja uses a linear function to decrease the temperature and the temperature is multiplied by the cost function. Now, we will analyze how changing the simulated annealing parameters, and the acceptance probability function affects the performance of Ja-Be-Ja.
+In this task, we analyze how the algorithm's performance is affected when different parameters are changed, specifically, the effect of simulated annealing. In the Task 1, Ja-Be-Ja uses a linear function to decrease the temperature and the temperature is multiplied by the cost function. Now, we will analyze how changing the simulated annealing parameters, and the acceptance probability function affects the performance of Ja-Be-Ja.
 
 ### Part 1 - Implementation of Simulated Annealing
 Following the description from [this](http://katrinaeg.com/simulated-annealing.html) blog post we implemented a different simulated annealing. Basically, to avoid a local maxima and instead find the global one, we calculate an **acceptance probability**. This probability is used, at random points in the process, to choose whether to accept a temporary worse solution since it could lead to a neighboring solution that leads to the gloabl maximum.
